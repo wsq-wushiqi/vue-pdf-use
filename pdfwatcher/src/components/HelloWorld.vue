@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="main-container"  @mousewheel="pdfScroll">
     <el-button @click="openPdf">打开</el-button>
     <el-dialog :visible.sync="pdfDlg" fullscreen title="pdf文件预览" width="800px" class="pdf-dialog">
       <div class="check" @click="choosePage">
@@ -15,10 +15,11 @@
            />
       </div>
       <iframe
-        id="pdf-iframe"
+        id="pdfiframe"
         ref="pdfIframe"
         :src="'/static/pdf/web/viewer.html?file=' + 'https://dakaname.oss-cn-hangzhou.aliyuncs.com/file/2018-12-28/1546003237411.pdf'"
         class="pdf-viewer"
+        onmousewheel="pdfScroll"
         >
       </iframe>
       <div class="pdf-footer">
@@ -34,42 +35,64 @@ export default {
     return {
       pdfDlg: false,
       check: [],
-      currentPage: ''
+      currentPage: 1,
+      testData: []
     }
   },
   mounted() {
-    this.currentPage = sessionStorage.page
-    console.log(this.currentPage);
-    
+    sessionStorage.clear()
+    // this.currentPage = 1
   },
   methods: {
     openPdf: function() {
+      sessionStorage.setItem('page', 1)
       this.pdfDlg = true
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.currentPage = sessionStorage.page
+          let totalPage = sessionStorage.totalPage
+          for (let i = 1; i < totalPage; i++) {
+            this.check[i] = false
+          }
+        })
+      }, 400);
     },
     choosePage: function() {
-      console.log(1111111);
-      // console.log(this.$refs.pdfIframe);
-      // let currentPage = 0
-      // let iFrame = document.getElementById('pdf-iframe')
-      // console.log(JSON.parse(localStorage.getItem('pdfjs.history')).files[0].page);
-      console.log(sessionStorage.page);
+      this.$forceUpdate()
       this.currentPage = sessionStorage.page
-      this.check[sessionStorage.page] = true
-      console.log(this.check);
-      
-      // if (iFrame.contentDocument) {
-      //   currentPage = iFrame.contentDocument.getElementById
-      // }
-    },
-  watch: {
-    'check': {
-      handler: function(val, oldval) {
-        console.log(val);
-        console.log(oldval);
-        
+      if (this.check[this.currentPage]) {
+        this.check[this.currentPage] = false
+      } else {
+        this.check[this.currentPage] = true
       }
+      console.log(this.check);
+    },
+    pdfScroll: function() {
+      console.log(9999999);
+    },
+    divClick: function() {
+      console.log(22222);
     }
-  }
+  },
+  watch: {
+    // sessionStorage: {
+    //   handler: function(newVal, oldVal) {
+    //     console.log(newVal);
+    //     console.log(oldVal);
+    //   },
+    //   deep: true
+    // }
+    // 'sessionStorage.page': {
+    //   handler: function(val, oldval) {
+    //     console.log(val);
+    //     console.log(oldval);
+    //   },
+    //   deep: true
+    // },
+    // currentPage(newVal, oldVal) {
+    //   console.log(newVal);
+    //   console.log(oldVal);
+    // }
   }
 }
 </script>
@@ -97,10 +120,17 @@ export default {
   top: 120px;
   left: 20px;
 }
+.pdf-div {
+  width: 100%;
+  height: 100%;
+  /* background-color: yellow; */
+  z-index: 180;
+}
 </style>
 <style>
 .pdf-dialog .el-dialog__body {
-  height: 700px;
+  /* height: 498px; */
+  height: 800px;
   padding: 10px;
 }
 /* .pdf-dialog .el-dialog__footer {

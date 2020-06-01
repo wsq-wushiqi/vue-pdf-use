@@ -18918,8 +18918,8 @@ class WidgetAnnotation extends Annotation {
     data.readOnly = this.hasFieldFlag(_util.AnnotationFieldFlag.READONLY);
 
     if (data.fieldType === "Sig") {
-      data.fieldValue = null;
-      this.setFlags(_util.AnnotationFlag.HIDDEN);
+      // data.fieldValue = null;
+      // this.setFlags(_util.AnnotationFlag.HIDDEN);
     }
   }
 

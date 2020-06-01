@@ -1557,7 +1557,6 @@ const PDFViewerApplication = {
 
     eventBus._on("openfile", webViewerOpenFile);
   },
-
   bindWindowEvents() {
     const {
       eventBus,
@@ -5880,7 +5879,6 @@ class PDFFindController {
     const currentPageIndex = this._linkService.page - 1;
     const numPages = this._linkService.pagesCount;
     this._highlightMatches = true;
-
     if (this._dirtyMatch) {
       this._dirtyMatch = false;
       this._selected.pageIdx = this._selected.matchIdx = -1;
@@ -5893,7 +5891,6 @@ class PDFFindController {
       this._matchesCountTotal = 0;
 
       this._updateAllPages();
-
       for (let i = 0; i < numPages; i++) {
         if (this._pendingFindMatches[i] === true) {
           continue;
@@ -5921,7 +5918,7 @@ class PDFFindController {
 
     const offset = this._offset;
     this._pagesToSearch = numPages;
-
+    
     if (offset.matchIdx !== null) {
       const numPageMatches = this._pageMatches[offset.pageIdx].length;
 
@@ -5991,7 +5988,7 @@ class PDFFindController {
     offset.pageIdx = previous ? offset.pageIdx - 1 : offset.pageIdx + 1;
     offset.matchIdx = null;
     this._pagesToSearch--;
-
+    
     if (offset.pageIdx >= numPages || offset.pageIdx < 0) {
       offset.pageIdx = previous ? numPages - 1 : 0;
       offset.wrapped = true;
@@ -6826,6 +6823,7 @@ class PDFLinkService {
   }
 
   get pagesCount() {
+    
     return this.pdfDocument ? this.pdfDocument.numPages : 0;
   }
 
@@ -8120,6 +8118,7 @@ class PDFThumbnailViewer {
 
     pdfDocument.getPage(1).then(firstPdfPage => {
       const pagesCount = pdfDocument.numPages;
+      sessionStorage.setItem('totalPage', pagesCount)
       const viewport = firstPdfPage.getViewport({
         scale: 1
       });
@@ -8911,6 +8910,7 @@ class BaseViewer {
     if (resetCurrentPageView) {
       this._resetCurrentPageView();
     }
+    
     sessionStorage.setItem('page', val)
     return true;
   }
