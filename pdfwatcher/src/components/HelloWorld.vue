@@ -2,18 +2,6 @@
   <div class="main-container"  @mousewheel="pdfScroll">
     <el-button @click="openPdf">打开</el-button>
     <el-dialog :visible.sync="pdfDlg" fullscreen title="pdf文件预览" width="800px" class="pdf-dialog">
-      <!-- <div class="check" @click="choosePage">
-        <img
-          v-if="check[currentPage]"
-          style="width: 100px; height: 100px"
-          src="../assets/check.png"
-           />
-        <img
-          v-else
-          style="width: 100px; height: 100px"
-          src="../assets/unCheck1.png"
-           />
-      </div> -->
       <iframe
         id="pdfiframe"
         ref="pdfIframe"
@@ -73,26 +61,6 @@ export default {
     divClick: function() {
       console.log(22222);
     }
-  },
-  watch: {
-    // sessionStorage: {
-    //   handler: function(newVal, oldVal) {
-    //     console.log(newVal);
-    //     console.log(oldVal);
-    //   },
-    //   deep: true
-    // }
-    // 'sessionStorage.page': {
-    //   handler: function(val, oldval) {
-    //     console.log(val);
-    //     console.log(oldval);
-    //   },
-    //   deep: true
-    // },
-    // currentPage(newVal, oldVal) {
-    //   console.log(newVal);
-    //   console.log(oldVal);
-    // }
   }
 }
 </script>
