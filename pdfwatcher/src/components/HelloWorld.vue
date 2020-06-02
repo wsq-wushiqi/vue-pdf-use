@@ -2,7 +2,7 @@
   <div class="main-container"  @mousewheel="pdfScroll">
     <el-button @click="openPdf">打开</el-button>
     <el-dialog :visible.sync="pdfDlg" fullscreen title="pdf文件预览" width="800px" class="pdf-dialog">
-      <div class="check" @click="choosePage">
+      <!-- <div class="check" @click="choosePage">
         <img
           v-if="check[currentPage]"
           style="width: 100px; height: 100px"
@@ -13,7 +13,7 @@
           style="width: 100px; height: 100px"
           src="../assets/unCheck1.png"
            />
-      </div>
+      </div> -->
       <iframe
         id="pdfiframe"
         ref="pdfIframe"
@@ -112,7 +112,6 @@ export default {
   height: 50px;
 }
 .check {
-  /* background-color: #ffffff; */
   width: 100px;
   height: 100px;
   position: fixed;
@@ -123,14 +122,12 @@ export default {
 .pdf-div {
   width: 100%;
   height: 100%;
-  /* background-color: yellow; */
   z-index: 180;
 }
 </style>
 <style>
 .pdf-dialog .el-dialog__body {
-  /* height: 498px; */
-  height: 800px;
+  height: 498px;
   padding: 10px;
 }
 /* .pdf-dialog .el-dialog__footer {

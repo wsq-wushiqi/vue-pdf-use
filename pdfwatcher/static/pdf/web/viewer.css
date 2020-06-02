@@ -2440,3 +2440,13 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     display: none;
   }
 }
+.check-image-div {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(185, 202, 218, 0);
+  position: fixed;
+  z-index: 1000;
+  top: 40px;
+  right: 30px;
+  overflow: hidden;
+}

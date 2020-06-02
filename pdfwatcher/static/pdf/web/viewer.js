@@ -246,6 +246,7 @@ function getViewerConfiguration() {
       lessInfoButton: document.getElementById("errorShowLess")
     },
     printContainer: document.getElementById("printContainer"),
+    checkPageDiv: document.getElementById('checkPageDiv'),
     openFileInputName: "fileInput",
     debuggerScriptPath: "./debugger.js"
   };
@@ -1793,6 +1794,44 @@ function webViewerInitialized() {
       fileInput: evt.target
     });
   });
+  var check = []
+  var img1 = document.createElement(('img'))
+  img1.name = 'img1'
+  img1.setAttribute('src', './images/unCheck1.png')
+  img1.setAttribute('style', 'width: 100px; height: 100px')
+  var img2 = document.createElement(('img'))
+  img2.setAttribute('src', './images/check.png')
+  img2.setAttribute('style', 'width: 100px; height: 100px')
+  var checkPageDiv = document.getElementById('checkPageDiv')
+  // ********************************
+  appConfig.mainContainer.addEventListener('mousewheel', function(e) {
+    var total = sessionStorage.totalPage
+    var childs = checkPageDiv.children.length
+    if (check[sessionStorage.page] === undefined || !check[sessionStorage.page]) {
+      if (childs > 1) {
+        checkPageDiv.replaceChild(img1, img2)
+      } else {
+        checkPageDiv.appendChild(img1)
+      }
+    } else {
+      console.log(childs);
+      if (childs > 1) {
+        checkPageDiv.replaceChild(img2, img1)
+      } else {
+        checkPageDiv.appendChild(img2)
+      }
+    }
+  }),
+  checkPageDiv.addEventListener('click', function() {
+    if (check[sessionStorage.page]) {
+      check[sessionStorage.page] = false
+      checkPageDiv.replaceChild(img1, img2)
+    } else {
+      check[sessionStorage.page] = true
+      checkPageDiv.replaceChild(img2, img1)
+    }
+  })
+  // ********************************
   appConfig.mainContainer.addEventListener("dragover", function (evt) {
     evt.preventDefault();
     evt.dataTransfer.dropEffect = "move";
@@ -13153,6 +13192,15 @@ window.addEventListener("keydown", function (event) {
     }
   }
 }, true);
+// *********************************
+// checkPageDiv.addEventListener('mousewheel', function(e) {
+//   console.log(e);
+  
+// })
+// mainContainer.addEventListener('mousewheel', function(e) {
+//   console.log(e);
+  
+// })
 
 if ("onbeforeprint" in window) {
   const stopPropagationIfNeeded = function (event) {
