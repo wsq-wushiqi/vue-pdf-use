@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container"  @mousewheel="pdfScroll">
+  <div class="main-container">
     <el-button @click="openPdf">打开</el-button>
     <el-dialog :visible.sync="pdfDlg" fullscreen title="pdf文件预览" width="800px" class="pdf-dialog">
       <iframe
@@ -7,7 +7,6 @@
         ref="pdfIframe"
         :src="'/static/pdf/web/viewer.html?file=' + 'https://dakaname.oss-cn-hangzhou.aliyuncs.com/file/2018-12-28/1546003237411.pdf'"
         class="pdf-viewer"
-        onmousewheel="pdfScroll"
         >
       </iframe>
       <div class="pdf-footer">
@@ -22,9 +21,7 @@ export default {
   data() {
     return {
       pdfDlg: false,
-      check: [],
-      currentPage: 1,
-      testData: []
+      currentPage: 1
     }
   },
   mounted() {
@@ -39,27 +36,8 @@ export default {
         this.$nextTick(() => {
           this.currentPage = sessionStorage.page
           let totalPage = sessionStorage.totalPage
-          for (let i = 1; i < totalPage; i++) {
-            this.check[i] = false
-          }
         })
       }, 400);
-    },
-    choosePage: function() {
-      this.$forceUpdate()
-      this.currentPage = sessionStorage.page
-      if (this.check[this.currentPage]) {
-        this.check[this.currentPage] = false
-      } else {
-        this.check[this.currentPage] = true
-      }
-      console.log(this.check);
-    },
-    pdfScroll: function() {
-      console.log(9999999);
-    },
-    divClick: function() {
-      console.log(22222);
     }
   }
 }
@@ -78,14 +56,6 @@ export default {
   list-style: none;
   background-color: #797c782f;
   height: 50px;
-}
-.check {
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  z-index: 200;
-  top: 120px;
-  left: 20px;
 }
 .pdf-div {
   width: 100%;
