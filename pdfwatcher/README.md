@@ -2,6 +2,7 @@
 
 > A Vue.js project
 
+# 结果预览 https://s4.aconvert.com/convert/p3r68-cdx67/tji1k-89dtf.gif
 ## Build Setup
 
 ``` bash
