@@ -68,13 +68,4 @@ export default {
   height: 498px;
   padding: 10px;
 }
-/* .pdf-dialog .el-dialog__footer {
-  bottom: 0;
-  display: flex;
-  margin: 0px 0px 5px 0px;
-  z-index: 300;
-  list-style: none;
-  background-color: #797c782f;
-  height: 50px;
-} */
 </style>
